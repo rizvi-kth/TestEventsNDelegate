@@ -48,6 +48,7 @@
     <Compile Include="TestDelegate.cs" />
     <Compile Include="TestPublishSubscribeEventBased.cs" />
     <Compile Include="TestPublishSubscribe.cs" />
+    <Compile Include="TestSecureEventDynamicInvoke.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

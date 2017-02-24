@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TestEventsNDeligate.EvebtBased;
-
+using TestEventsNDeligate.SecureWithDynamicInvoke;
 namespace TestEventsNDeligate
 {
     class Program
@@ -20,7 +20,11 @@ namespace TestEventsNDeligate
             //tps.RunTest();
 
             TestPublishSubscribeEventBased tpse = new TestPublishSubscribeEventBased();
-            tpse.RunTest();
+            //tpse.RunTest();
+
+            TestSecureEventDynamicInvoke tsedi = new TestSecureEventDynamicInvoke();
+            tsedi.RunTest();
+
 
 
 
