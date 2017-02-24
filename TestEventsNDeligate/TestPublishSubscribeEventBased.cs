@@ -11,6 +11,12 @@ namespace TestEventsNDeligate.EvebtBased
 
             Publisher pb = new Publisher();
             Thread.Sleep(2000);
+            // ONE PROBLEMS FOR USING EVENT
+            // If you call the delegate function with out any subscription -  will throw exception.
+            // So delegate variable needs a null check in the Raise function 
+            // Or you can initialize the variable with empry function ie. dalegate { }
+            pb.Raise("TraffZor");
+
 
             Subscriber1 sub1 = new Subscriber1();
             sub1.SubscribeToPublisher(pb);
@@ -42,16 +48,17 @@ namespace TestEventsNDeligate.EvebtBased
     public class Publisher
     {
         // 1. Declare and Initialize the built-in delegate 
-        public event Action<string> processSrting;
+        public event Action<string> processSrting = delegate { };
 
         // 3. Raise the event 
         public void Raise(string input)
         {
-            if (processSrting != null)
-            {
+
+            //if (processSrting != null)
+            //{
                 Console.WriteLine(" * Publisher triggering/raising the event.");
                 processSrting(input);
-            }
+            //}
         }
     }
 

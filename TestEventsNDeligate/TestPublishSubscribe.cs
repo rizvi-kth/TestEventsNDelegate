@@ -11,6 +11,11 @@ namespace TestEventsNDeligate
 
             Publisher pb = new Publisher();
             Thread.Sleep(2000);
+            // ONE PROBLEMS FOR USING NACKED DELEGATE -
+            // If you call the delegate function with out any subscription - will throw exception.
+            // So delegate variable needs a null check in the Raise function
+            pb.Raise("TraffZor");
+            
 
             Subscriber1 sub1 = new Subscriber1();
             sub1.SubscribeToPublisher(pb);
@@ -20,8 +25,8 @@ namespace TestEventsNDeligate
             Console.WriteLine("\nRaising event from publisher.");
             pb.Raise("TraffZor");
 
-
-            // Two problems for using nacked delegate -
+            
+            // TWO PROBLEMS FOR USING NACKED DELEGATE -
             // 1. Any user of the Publisher can call the delegated functions
             Console.WriteLine("\nAny consumer of Publisher calling nacked delegate.");
             pb.processSrting("TraffZor");
