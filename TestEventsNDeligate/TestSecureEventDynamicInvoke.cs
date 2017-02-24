@@ -36,14 +36,15 @@ namespace TestEventsNDeligate.SecureWithDynamicInvoke
                 //Try the calls one at a time
 
                 // With   SECURE event method invocation - the second subscription method with "Custom Exception" invocation will NOT DISRUPT the following calls.
-                pb.RaiseSecure();
+                //pb.RaiseSecure();
 
                 // With UNSECURE event method invocation - the second subscription method with "Custom Exception" invocation will     DISRUPT the following calls.
-                //pb.RaiseUnsecure();
+                pb.RaiseUnsecure();
             }
             catch (Exception e)
             {
-                Console.WriteLine("Final Exception Message: " + e.Message);
+                //Console.WriteLine("Final Exception Message: " + e.Message);
+                throw new Exception("Final Exception Message: ", e);
                 
             }
             
