@@ -49,7 +49,7 @@ namespace TestEventsNDeligate.EvebtBased
         {
             if (processSrting != null)
             {
-                Console.WriteLine("Publisher triggering/raising the event.");
+                Console.WriteLine(" * Publisher triggering/raising the event.");
                 processSrting(input);
             }
         }
