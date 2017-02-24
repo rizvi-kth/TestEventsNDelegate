@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TestEventsNDeligate.EvebtBased;
 
 namespace TestEventsNDeligate
 {
@@ -12,11 +13,15 @@ namespace TestEventsNDeligate
         {
 
             TestDelegate td = new TestDelegate();
-            td.TestSimpleDelegate();
-            td.TestBuiltinDelegate();
+            //td.TestSimpleDelegate();
+            //td.TestBuiltinDelegate();
 
-            TestPublishSubscribe tpcb = new TestPublishSubscribe();
-            tpcb.RunTest();
+            TestPublishSubscribe tps = new TestPublishSubscribe();
+            //tps.RunTest();
+
+            TestPublishSubscribeEventBased tpse = new TestPublishSubscribeEventBased();
+            tpse.RunTest();
+
 
 
 

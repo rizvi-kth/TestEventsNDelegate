@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading;
 
-namespace TestEventsNDeligate
+namespace TestEventsNDeligate.EvebtBased
 {
-    internal class TestPublishSubscribe
+    internal class TestPublishSubscribeEventBased
     {
 
         public void RunTest()
@@ -21,13 +21,13 @@ namespace TestEventsNDeligate
             pb.Raise("TraffZor");
 
 
-            // Two problems for using nacked delegate -
-            // 1. Any user of the Publisher can call the delegated functions
-            Console.WriteLine("\nAny consumer of Publisher calling nacked delegate.");
-            pb.processSrting("TraffZor");
+            // Two problems for using nacked delegate - PROBLEM SOLVED WITH EVENT
+            // 1. Any user of the Publisher can call the delegated functions - NOT POSSIBLE WITH EVENT, PREVENTS IN COMPILE TIME
+            //Console.WriteLine("\nAny consumer of Publisher calling nacked delegate.");
+            //pb.processSrting("TraffZor");
 
-            // 2. In the subscriber it is possible to use = instead of := to subscribe. 
-            // Using = can replace the previous subscriptions with the second subscription.
+            // 2. In the subscriber it is possible to use = instead of := to subscribe. - NOT POSSIBLE WITH EVENT, PREVENTS IN COMPILE TIME
+            // Using = can replace the previous subscriptions with the second subscription. 
             Console.WriteLine("\nA third subscriber is subscribing.");
             Subscriber3 sub3 = new Subscriber3();
             sub3.SubscribeToPublisher(pb);
@@ -42,7 +42,7 @@ namespace TestEventsNDeligate
     public class Publisher
     {
         // 1. Declare and Initialize the built-in delegate 
-        public Action<string> processSrting;
+        public event Action<string> processSrting;
 
         // 3. Raise the event 
         public void Raise(string input)
@@ -87,9 +87,9 @@ namespace TestEventsNDeligate
         public void SubscribeToPublisher(Publisher pb)
         {
             Thread.Sleep(1000);
-            Console.WriteLine("Subscriber-3 subscribing to Publisher using '=' instade of '+='");
+            Console.WriteLine("Subscriber-3 subscribing to Publisher using '+=' instade of '=' - prevented by event.");
             // 2. Subscribe to the publisher with its delegate using = instead of := 
-            pb.processSrting = (name) => { Console.WriteLine("Processed string from Subscriber3:" + name.ToLower().Substring(0,3).ToUpper()); };
+            pb.processSrting += (name) => { Console.WriteLine("Processed string from Subscriber3:" + name.ToLower().Substring(0,3).ToUpper()); };
         }
 
     }
