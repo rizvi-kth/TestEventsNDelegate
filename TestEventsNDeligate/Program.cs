@@ -22,6 +22,7 @@ namespace TestEventsNDeligate
             TestPublishSubscribeEventBased tpse = new TestPublishSubscribeEventBased();
             //tpse.RunTest();
 
+            // Run this test without debugging enabled.
             TestSecureEventDynamicInvoke tsedi = new TestSecureEventDynamicInvoke();
             tsedi.RunTest();
 

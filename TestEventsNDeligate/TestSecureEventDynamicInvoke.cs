@@ -15,8 +15,10 @@ namespace TestEventsNDeligate.SecureWithDynamicInvoke
         {
 
             Publisher pb = new Publisher();
-            Thread.Sleep(2000);
+            
 
+            Console.WriteLine("\nSubscribing to the event delegate ...");
+            
             // 2. Subscribe to the publisher with its delegate 
             // 1st Subscription
             pb.OnAnyChange += (sender,e) => { Console.WriteLine("Sender {" + sender.ToString() + "} sent the message: " + e);  };
@@ -24,6 +26,9 @@ namespace TestEventsNDeligate.SecureWithDynamicInvoke
             pb.OnAnyChange += (sender,e) => { throw new Exception("Custom exception");  };
             // 3rd Subscription
             pb.OnAnyChange += (sender,e) => { Console.WriteLine("Sender {" + sender.ToString() + "} sent the message: " + e);  };
+
+            Thread.Sleep(1000);
+            Console.WriteLine("\nRaising the event ...");
 
             // 3a. Raise the event call 
             try
@@ -50,13 +55,15 @@ namespace TestEventsNDeligate.SecureWithDynamicInvoke
     public class Publisher
     {
         // 1. Declare and Initialize the built-in delegate 
+        // The Publisher class uses an EventHandler<T>, which specifies the type of the event arguments.
+        // When raising this event, you are required to pass an instance of T.
         public event EventHandler<string> OnAnyChange = delegate { };
 
 
         // 3. Raise the event 
         public void RaiseUnsecure()
         {
-            OnAnyChange(this, "A messaage from publisher.");
+            OnAnyChange(this, "A messaage from unsecure publisher.");
         }
 
         // 3. Raise the event 
@@ -68,7 +75,7 @@ namespace TestEventsNDeligate.SecureWithDynamicInvoke
             {
                 try
                 {
-                    handler.DynamicInvoke(this, "A messaage from publisher.");
+                    handler.DynamicInvoke(this, "A messaage from secure publisher.");
                 }
                 catch (Exception e)
                 {
