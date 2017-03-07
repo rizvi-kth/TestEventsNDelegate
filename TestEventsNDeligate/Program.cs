@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using TestEventsNDeligate.EvebtBased;
 using TestEventsNDeligate.SecureWithDynamicInvoke;
+using TestEventsNDeligate.SomeEventArgs;
+
 namespace TestEventsNDeligate
 {
     class Program
@@ -24,7 +26,12 @@ namespace TestEventsNDeligate
 
             // Run this test without debugging enabled.
             TestSecureEventDynamicInvoke tsedi = new TestSecureEventDynamicInvoke();
-            tsedi.RunTest();
+            //tsedi.RunTest();
+
+
+            TestSomeEventArgs tssevr = new TestSomeEventArgs();
+            tssevr.RunTest();
+
 
 
 

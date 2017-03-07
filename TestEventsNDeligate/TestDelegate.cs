@@ -14,12 +14,18 @@ namespace TestEventsNDeligate
 
             // 2. Create a delegate type variable
             // 3. Assign a function to the delegate type with a lamda expression
-            Calculate Addx = (p, q) => { return (p + q); } ;
-            Calculate Subx = (p, q) => { return (p - q); };
+            Calculate AddxLambda = (p, q) => { return (p + q); };
+            Calculate AddxWithDelegate = delegate (int p, int q) { return (p + q); }; // With delegate keyword you have to specify parameter type
+
+            Calculate SubxLambda = (p, q) => { return (p - q); };
+            Calculate SubxWithDelegate = delegate (int p, int q) { return (p - q); }; // With delegate keyword you have to specify parameter type
+
             
             // 4. Function Call using delegate
-            int r = Addx(3, 2);
-            int s = Subx(3, 2);
+            int r = AddxLambda(3, 2);
+            int r1 = AddxWithDelegate(3, 2);
+            int s = SubxLambda(3, 2);
+            int s1 = SubxWithDelegate(3, 2);
             
             Console.WriteLine();
             Console.WriteLine("\nMethods call with Delegate type declaration with delegate keyword");
@@ -36,7 +42,7 @@ namespace TestEventsNDeligate
             // 1. Create a delegate type variable
             // 2. Assign a function to the delegate type with a lamda expression
             Action<int, int> Addx = (p, q) => { Console.WriteLine(p + q); };
-            Func<int, int, int> Subx = (p1, q1) =>{ return (p1 - q1); };
+            Func<int, int, int> Subx = (p1, q1) => { return (p1 - q1); };
 
 
             // 4. Function Call using delegate
