@@ -30,16 +30,16 @@ namespace TestEventsNDeligate.SomeEventArgs
         {
             // A generic event handler
             public event EventHandler<ErrorEventArgs> GenericErrorEventhandler = delegate { };
-            public void RaiseGeneric()
+            public void RaiseGeneric(ErrorEventArgs eventArgsFromSubscribers)
             {
-                GenericErrorEventhandler(this, new ErrorEventArgs(" <Value from my custom event args property> "));
+                GenericErrorEventhandler(this, eventArgsFromSubscribers);
             }
 
             // A non-generic event handler
             public event EventHandler ErrorEventhandler = delegate { };
-            public void RaiseNonGeneric()
+            public void RaiseNonGeneric(ErrorEventArgs eventArgsFromSubscribers)
             {
-                ErrorEventhandler(this, new ErrorEventArgs(" <Value from my custom event args property> "));
+                ErrorEventhandler(this, eventArgsFromSubscribers);
             }
 
 
@@ -50,11 +50,17 @@ namespace TestEventsNDeligate.SomeEventArgs
 
             public void SubscribeAndRaise(Publisher pb)
             {
-                pb.GenericErrorEventhandler += delegate (object sender, ErrorEventArgs e) { Console.WriteLine($"With GenericErrorEventhandler { e.MyProperty }"); };
-                pb.RaiseGeneric();
+                // With Generic Event Args its possible to 
+                // 1. Send a custom EventArgs from the subscriber.
+                // 2. Send message from subscriber to event handeler(i.e. GenericErrorEventhandler)
+                pb.GenericErrorEventhandler += delegate (object sender, ErrorEventArgs e) { Console.WriteLine($"With GenericErrorEventhandler:\n { e.MyProperty }"); };
+                pb.RaiseGeneric(new ErrorEventArgs(" <Value from my custom event args property> " + "<Message from subscriber>"));
 
-                pb.ErrorEventhandler += delegate (object sender, EventArgs e) { Console.WriteLine($"With NonGenericErrorEventhandler  <{ e.ToString() }> Can't retrive a custom EventArgs"); };
-                pb.RaiseNonGeneric();
+                // With NON-Generic Event Args its NOT possible to 
+                // 1. Send a custom EventArgs from the subscriber.
+                // 2. Send message from subscriber to event handeler(i.e. ErrorEventhandler)
+                pb.ErrorEventhandler += delegate (object sender, EventArgs e) { Console.WriteLine($"With NonGenericErrorEventhandler:\n  <{ e.ToString() }> Can't retrive a custom EventArgs"); };
+                pb.RaiseNonGeneric(new ErrorEventArgs(" <Value from my custom event args property> " + "<Message from subscriber>"));
 
 
 
